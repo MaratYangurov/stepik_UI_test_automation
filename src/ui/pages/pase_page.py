@@ -30,6 +30,3 @@ class BasePage:
         """Кликает на мониторы"""
         self.page.locator('#cartur').click()
         assert CART_URL in self.page.url
-
-
-
