@@ -1,6 +1,6 @@
 from abc import ABC
 
-from playwright.async_api import expect
+from playwright.sync_api import expect
 from playwright.sync_api import Page
 
 class Base(ABC):
@@ -30,6 +30,10 @@ class Base(ABC):
             self._element = self.page.get_by_placeholder(text=self.value)
         else:
             raise ValueError('Указана неверная стратегия')
+
+    def get_element(self):
+        """Возвращает локатор элемента"""
+        return self._element
 
     def click(self):
         """Кликает по элементу"""

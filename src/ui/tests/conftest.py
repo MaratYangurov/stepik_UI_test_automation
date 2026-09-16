@@ -1,7 +1,7 @@
 import pytest
 from playwright.sync_api import sync_playwright
 from src.ui.pages.pase_page import BasePage
-from src.ui.pages.card_page import CartPage
+from src.ui.pages.cart_page import CartPage
 
 
 @pytest.fixture(scope='function')
