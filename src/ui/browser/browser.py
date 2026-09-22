@@ -30,7 +30,7 @@ class Browser:
         all_tabs = self.page.context.pages
         all_tabs[number].close()
 
-    def switch_tab(self, number: int):
+    def switch_to_tab(self, number: int):
         """Переходит на страницу с указанным номером и закрывает предыдущие вкладки"""
 
         all_tabs = self.page.context.pages
@@ -45,4 +45,20 @@ class Browser:
         frame.locator(locator_for_click).click()
 
     def alert_accept(self):
-        """Принимает диалоговое окно"""
+        """Принимает диалоговое окно и нажимает ОК"""
+
+        self.page.on('dialog', lambda dialog: dialog.accept())
+
+    def evalueate_javascript(self, script: str):
+        """Выполняет javascript на странице"""
+        return self.page.evaluate(script)
+
+    def check_download_file(self):
+        """Метод после действия которое вызывает загрузку файла, проверяет, что файл загрузился"""
+        with self.page.expect_download() as download_info:
+            download = download_info.value
+            assert download.path() != ''
+
+    def press_keys(self, keys: str):
+        """Выполняет нажатие клавиш/сочетание клавиш на клаве"""
+        self.page.keyboard.press(keys)

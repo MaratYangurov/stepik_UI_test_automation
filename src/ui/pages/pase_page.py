@@ -1,8 +1,10 @@
 from playwright.sync_api import Page
 
+from src.ui.browser.browser import Browser
 from src.ui.helper.urls import BASE_URL, CART_URL
 from src.ui.page_elements.element import Element
 from src.ui.page_elements.text import Text
+from src.ui.tests.conftest import browser
 
 
 class BasePage:
@@ -11,6 +13,7 @@ class BasePage:
     def __init__(self, page: Page, url=BASE_URL):
         self.page = page
         self.url = url
+        self.browser = Browser(page)
         self.text_monitors = Text(page, stratagy='by_text', value='Monitors')
         self.text_apple_monitors = Text(page, stratagy='by_text', value='Apple monitor 24')
         self.elemment_card = Element(page, stratagy='locator', selector='.card-block')
