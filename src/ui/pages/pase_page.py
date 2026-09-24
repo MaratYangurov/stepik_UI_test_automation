@@ -4,7 +4,6 @@ from src.ui.browser.browser import Browser
 from src.ui.helper.urls import BASE_URL, CART_URL
 from src.ui.page_elements.element import Element
 from src.ui.page_elements.text import Text
-from src.ui.tests.conftest import browser
 
 
 class BasePage:
