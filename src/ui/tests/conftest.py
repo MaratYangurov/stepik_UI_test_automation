@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from src.ui.browser.browser_launcher import BrowserLauncher
-from src.ui.pages.pase_page import BasePage
+from src.ui.pages.base_page import BasePage
 from src.ui.pages.cart_page import CartPage
 
 

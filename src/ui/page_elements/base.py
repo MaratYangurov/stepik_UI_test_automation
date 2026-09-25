@@ -1,5 +1,5 @@
 from abc import ABC
-
+import allure
 from playwright.sync_api import expect
 from playwright.sync_api import Page
 
@@ -12,13 +12,15 @@ class Base(ABC):
             stratagy: str = None,
             selector: str = None,
             role = None,
-            value: str = None
+            value: str = None,
+            allure_name: str = None
     ):
         self.page = page
         self.stratagy = stratagy
         self.selector = selector
         self.role = role
         self.value = value
+        self.allure_name = allure_name
 
         if stratagy == 'locator':
             self._element = self.page.locator(self.selector)
@@ -37,15 +39,26 @@ class Base(ABC):
 
     def click(self):
         """Кликает по элементу"""
-        self._element.click()
+        with allure.step(f'Кликнем по элементу {self.allure_name}'):
+            self._element.click()
 
     def check_visible(self, visible=True):
         """Проверяет видимость Элемента
         :param visible: видимость элемента"""
-        expect(self._element).to_be_visible(visible=True)
+        if visible:
+            status_element = 'видимый'
+        else:
+            status_element = 'невидимый'
+        with allure.step(f'Проверим, что элемент "{self.allure_name}" {status_element}'):
+            expect(self._element).to_be_visible(visible=True)
 
     def wait_for(self, state, timeout_msec: int= None):
         """Ожидает, когда _element удовлетворяет условию state"""
-        self._element.wait_for(state=state, timeout=timeout_msec)
+        if (state == 'attaached') and (state == 'visible'):
+            status_element = 'видимый'
+        else:
+            status_element = 'невидимый'
+        with allure.step(f'Ждем, когда элемент  "{self.allure_name}" станет {status_element}'):
+            self._element.wait_for(state=state, timeout=timeout_msec)
         
 

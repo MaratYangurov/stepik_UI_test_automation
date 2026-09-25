@@ -1,4 +1,5 @@
 from src.ui.page_elements.base import Base
+import allure
 
 
 class Input(Base):
@@ -6,11 +7,13 @@ class Input(Base):
 
     def fill(self, text: str, delay: int|float = None):
         """Метод для ввода текста"""
-        if delay:
-            self._element.type(text=text, delay=delay)
-        else:
-            self._element.fill(value=text)
+        with allure.step(f'Введем текст "{text}" в поле ввода {self.allure_name}'):
+            if delay:
+                self._element.type(text=text, delay=delay)
+            else:
+                self._element.fill(value=text)
 
     def clear(self):
         """Очищает поле ввода"""
-        self._element.clear()
+        with allure.step(f'Очистим поле ввода "{self.allure_name}"'):
+            self._element.clear()

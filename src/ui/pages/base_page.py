@@ -13,14 +13,14 @@ class BasePage:
         self.page = page
         self.url = url
         self.browser = Browser(page)
-        self.text_monitors = Text(page, stratagy='by_text', value='Monitors')
-        self.text_apple_monitors = Text(page, stratagy='by_text', value='Apple monitor 24')
-        self.elemment_card = Element(page, stratagy='locator', selector='.card-block')
-        self.text_card = Text(page, stratagy='locator', selector='#cartur')
+        self.text_monitors = Text(page, stratagy='by_text', value='Monitors', allure_name='Monitors')
+        self.text_apple_monitors = Text(page, stratagy='by_text', value='Apple monitor 24', allure_name='Apple monitor 24')
+        self.elemment_card = Element(page, stratagy='locator', selector='.card-block', allure_name='Карточка товара')
+        self.text_card = Text(page, stratagy='locator', selector='#cartur', allure_name='Корзина')
 
     def open(self):
         """Открываем страницу по url"""
-        return self.page.goto(self.url)
+        return self.browser.go_to_url(self.url)
 
     def switching_to_monitors(self):
         """Кликает на мониторы"""
